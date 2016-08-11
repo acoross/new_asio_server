@@ -7,90 +7,62 @@
 //
 
 #include <iostream>
-#include <thread>
-#include <map>
-#include <atomic>
+#include <memory>
 
 #define ASIO_STANDALONE
 #include "asio.hpp"
 
-template <size_t ThreadCount>
-class ThreadPool {
-public:
-	constexpr int get_thread_count() const {
-		return ThreadCount;
-	}
-
-	int get_this_thread_num() {
-		return th_nums[std::this_thread::get_id()];
-	}
-
-	void set_this_thread_num(int n) {
-		while(spinlock.test_and_set())
-			;
-
-		th_nums[std::this_thread::get_id()] = n;
-
-		spinlock.clear();
-	}
-
-	template <class FuncT>
-	void start(const FuncT& func){
-		int i = 0;
-		for (auto& t : th){
-			t = std::thread([&](int n)
-							{
-								set_this_thread_num(n);
-								func();
-							}, i++);
-		}
-	}
-
-	void join_all() {
-		for (auto& t : th) {
-			t.join();
-		}
-	}
-
-private:
-	std::atomic_flag spinlock;
-	std::vector<std::thread> th{ThreadCount};
-	std::map<std::thread::id, int> th_nums;
-};
+#include "thread_pool.hpp"
 
 template <size_t ThreadCount>
-void print_this_thread_num(ThreadPool<ThreadCount>& th_pool) {
+void print_this_thread_num(acoross::ThreadPool<ThreadCount>& th_pool) {
 	std::cout << th_pool.get_this_thread_num() << std::endl;
 }
 
+
+namespace acoross {
+
+	class Server {
+	public:
+		using tcp = asio::ip::tcp;
+
+		Server(asio::io_service& ios)
+		: acceptor_(ios), socket_(ios) {}
+
+		void start() {
+			do_accept();
+		}
+
+	private:
+		void do_accept() {
+			acceptor_.async_accept(socket_,
+								   [this](std::error_code ec) {
+									   if (!ec) {
+										   //todo something
+									   }
+									   do_accept();
+								   });
+		}
+
+		tcp::acceptor acceptor_;
+		tcp::socket socket_;
+	};
+}
+
+
 int main(int argc, const char * argv[]) {
+	using namespace acoross;
 
 	ThreadPool<6> th_pool;
-	std::cout << th_pool.get_thread_count() << std::endl;
-
 	asio::io_service io_service;
 
-	auto func = [&](){
-		print_this_thread_num(th_pool);
-
-		io_service.post([&](){
-			print_this_thread_num(th_pool);
-		});
-
-		io_service.dispatch([&](){
-			std::cout << 9 << std::endl;
-		});
-
-		print_this_thread_num(th_pool);
-	};
-
-	io_service.post(func);
+	acoross::Server server(io_service);
+	server.start();
 
 	std::cout << "start thread pool\n";
 	th_pool.start([&](){
 		io_service.run();
 	});
-
 	th_pool.join_all();
 	std::cout << "end thread pool\n";
 
