@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B06F17A31D5D945C00F54533 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B06F17A11D5D945C00F54533 /* game.cpp */; };
+		B06F17A81D5D986000F54533 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B06F17A61D5D986000F54533 /* character.cpp */; };
+		B06F17AE1D5D9B0600F54533 /* character_command_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B06F17AC1D5D9B0600F54533 /* character_command_impl.cpp */; };
 		B09D7FC71D5CA83A00E9DC9D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B09D7FC61D5CA83A00E9DC9D /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +26,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B06F17A01D5D922300F54533 /* server.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = server.hpp; sourceTree = "<group>"; };
+		B06F17A11D5D945C00F54533 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
+		B06F17A21D5D945C00F54533 /* game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = game.hpp; sourceTree = "<group>"; };
+		B06F17A51D5D981700F54533 /* task.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = task.hpp; sourceTree = "<group>"; };
+		B06F17A61D5D986000F54533 /* character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = character.cpp; sourceTree = "<group>"; };
+		B06F17A71D5D986000F54533 /* character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = character.hpp; sourceTree = "<group>"; };
+		B06F17A91D5D98B800F54533 /* util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = util.hpp; sourceTree = "<group>"; };
+		B06F17AA1D5D9A1D00F54533 /* character_factory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = character_factory.hpp; sourceTree = "<group>"; };
+		B06F17AB1D5D9AD600F54533 /* character_command.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = character_command.hpp; sourceTree = "<group>"; };
+		B06F17AC1D5D9B0600F54533 /* character_command_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = character_command_impl.cpp; sourceTree = "<group>"; };
+		B06F17AD1D5D9B0600F54533 /* character_command_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = character_command_impl.hpp; sourceTree = "<group>"; };
 		B077EA891D5CD39E0048F93A /* thread_pool.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = thread_pool.hpp; sourceTree = "<group>"; };
 		B09D7FC31D5CA83A00E9DC9D /* asio_server */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = asio_server; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09D7FC61D5CA83A00E9DC9D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -39,6 +53,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B06F17A41D5D97FB00F54533 /* game */ = {
+			isa = PBXGroup;
+			children = (
+				B06F17A11D5D945C00F54533 /* game.cpp */,
+				B06F17A21D5D945C00F54533 /* game.hpp */,
+				B06F17A51D5D981700F54533 /* task.hpp */,
+				B06F17A61D5D986000F54533 /* character.cpp */,
+				B06F17A71D5D986000F54533 /* character.hpp */,
+				B06F17A91D5D98B800F54533 /* util.hpp */,
+				B06F17AA1D5D9A1D00F54533 /* character_factory.hpp */,
+				B06F17AB1D5D9AD600F54533 /* character_command.hpp */,
+				B06F17AC1D5D9B0600F54533 /* character_command_impl.cpp */,
+				B06F17AD1D5D9B0600F54533 /* character_command_impl.hpp */,
+			);
+			name = game;
+			sourceTree = "<group>";
+		};
 		B09D7FBA1D5CA83A00E9DC9D = {
 			isa = PBXGroup;
 			children = (
@@ -58,8 +89,10 @@
 		B09D7FC51D5CA83A00E9DC9D /* asio_server */ = {
 			isa = PBXGroup;
 			children = (
+				B06F17A41D5D97FB00F54533 /* game */,
 				B09D7FC61D5CA83A00E9DC9D /* main.cpp */,
 				B077EA891D5CD39E0048F93A /* thread_pool.hpp */,
+				B06F17A01D5D922300F54533 /* server.hpp */,
 			);
 			path = asio_server;
 			sourceTree = "<group>";
@@ -121,6 +154,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B09D7FC71D5CA83A00E9DC9D /* main.cpp in Sources */,
+				B06F17A31D5D945C00F54533 /* game.cpp in Sources */,
+				B06F17A81D5D986000F54533 /* character.cpp in Sources */,
+				B06F17AE1D5D9B0600F54533 /* character_command_impl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
